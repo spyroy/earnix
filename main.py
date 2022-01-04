@@ -1,13 +1,8 @@
-from pages.base.pagebase import PageBase
-from pages.desktops import Desktops
-from pages.notebooks import Notebooks
-from pages.productpage import ProductPage
+from tests.Part1 import test_part1
+from tests.Part2 import test_part2_a, test_part2_b
 
-with PageBase() as page:
-    page.main_page()
-    page.go_to_notebooks()
-    notebooks = Notebooks()
-    ids = notebooks.sum_ids()
-    print(ids)
-    assert ids > 5
 
+def test_all():
+    test_part1()
+    test_part2_a()
+    test_part2_b()

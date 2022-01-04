@@ -4,20 +4,22 @@ from pages.notebooks import Notebooks
 
 
 def test_part2_a():
-    with PageBase(teardown=True) as page:
-        page.main_page()
-        page.go_to_desktops()
+    with PageBase(teardown=False) as page:
+        page.go_to_main_page()
+        page._go_to_desktops()
         desktops = Desktops()
-        prices = desktops.sum_all_desktops()
+        prices = desktops.sum_all_products()
         print("\ntotal desktops price: ", prices)
-        assert prices > 2500
+        desktops.go_to_main_page()
+        assert prices > 2500, "The sum of all products price is lower than 2500"
 
 
 def test_part2_b():
-    with PageBase(teardown=True) as page:
-        page.main_page()
-        page.go_to_notebooks()
+    with PageBase(teardown=False) as page:
+        page.go_to_main_page()
+        page._go_to_notebooks()
         notebooks = Notebooks()
-        ids = notebooks.sum_ids()
+        ids = notebooks.sum_all_products()
         print(ids)
-        assert ids > 5
+        notebooks.go_to_main_page()
+        assert ids > 5, "The sum of all products id is lower than 5"

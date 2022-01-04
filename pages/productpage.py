@@ -2,15 +2,16 @@ from selenium.webdriver.common.by import By
 import pages.constants as const
 from selenium.webdriver.support import expected_conditions as EC
 
+from pages.base.pagebase import PageBase
 
-class ProductPage:
-    def __init__(self, driver=const.DRIVER, name=None):
-        self.driver = driver
-        self.wait = const.WAIT
-        self.name = name
+
+class ProductPage(PageBase):
+    def __init__(self, name=None):
+        super(ProductPage, self).__init__()
+        self._name = name
 
     def go_to_product(self):
-        css = f"[title*='{self.name}']"
+        css = f"[title*='{self._name}']"
         self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css)))
         product = self.driver.find_element(By.CSS_SELECTOR, css)
         product.click()

@@ -19,34 +19,31 @@ class PageBase(webdriver.Chrome):
         if self.teardown:
             self.driver.close()
 
-    def main_page(self):
+    def go_to_main_page(self):
         self.driver.get(const.BASE_URL)
 
-    def search_in_main_page(self, txt):
-        search_bar = self.driver.find_element(By.ID, 'small-searchterms')
+    def _search_in_main_page(self, txt):
+        search_bar = self.driver.find_element(By.ID, const.SEARCH_BAR)
         search_bar.send_keys(txt)
-        submit = self.driver.find_element(By.CLASS_NAME, 'search-box-button')
+        submit = self.driver.find_element(By.CLASS_NAME, const.SEARCH_SUBMIT)
         submit.click()
 
-    def go_to_desktops(self):
-        css1 = "[href='/desktops']"
-        css2 = "[href='/computers']"
-        self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css2)))
-        a = ActionChains(self.driver)
-        m = self.driver.find_element(By.CSS_SELECTOR, css2)
-        a.move_to_element(m).perform()
-        self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css1)))
-        desktops = self.driver.find_element(By.CSS_SELECTOR, css1)
-        desktops.click()
+    def _go_to_desktops(self):
+        css = const.DESKTOPS
+        self._go_to(css)
 
-    def go_to_notebooks(self):
-        css1 = "[href='/notebooks']"
-        css2 = "[href='/computers']"
+    def _go_to_notebooks(self):
+        css = const.NOTEBOOKS
+        self._go_to(css)
+
+    def _go_to(self, css):
+        css1 = css
+        css2 = const.COMPUTERS
         self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css2)))
         a = ActionChains(self.driver)
         m = self.driver.find_element(By.CSS_SELECTOR, css2)
         a.move_to_element(m).perform()
         self.wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, css1)))
-        desktops = self.driver.find_element(By.CSS_SELECTOR, css1)
-        desktops.click()
+        element = self.driver.find_element(By.CSS_SELECTOR, css1)
+        element.click()
 
