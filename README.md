@@ -7,3 +7,4 @@ to run this do the steps below:
 * pytest Test1.py Test2.py
 
 *a browser will open and run all tests, everything is automated so let it run.*
+ 
